@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="xyz.yuurai.seekr.MainWindowController"
+      prefHeight="400.0" prefWidth="800.0">
+
+    <HBox>
+        <TextField fx:id="currentDirTextField"
+                   HBox.hgrow="ALWAYS"
+                   onKeyPressed="#handleUrlFieldKeyPress"/>
+        <Button text="Go"
+                onAction="#handleGoButtonPress"/>
+        <Button text="Up"
+                onAction="#handleUpButtonPress"/>
+    </HBox>
+
+    <SplitPane dividerPositions="0.3"
+               VBox.vgrow="ALWAYS">
+        <ListView fx:id="quickAccessListView"
+                  maxWidth="600"
+                  onMouseClicked="#handleQuickAccessClick"
+                  onKeyPressed="#handleQuickAccessKeyPress"/>
+        <ListView fx:id="currentDirContentsListView"
+                  onMouseClicked="#handleContentsClick"
+                  onKeyPressed="#handleContentsKeyPress"/>
+    </SplitPane>
+
+</VBox>
