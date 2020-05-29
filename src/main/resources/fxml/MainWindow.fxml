@@ -7,6 +7,12 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="xyz.yuurai.seekr.MainWindowController"
       prefHeight="400.0" prefWidth="800.0">
+    <MenuBar>
+        <Menu text="Options">
+            <CheckMenuItem fx:id="showHiddenItemsMenu" text="Show hidden items"/>
+            <CheckMenuItem fx:id="sortByDirsFirstMenu" text="Sort by directories first"/>
+        </Menu>
+    </MenuBar>
 
     <HBox>
         <TextField fx:id="currentDirTextField"

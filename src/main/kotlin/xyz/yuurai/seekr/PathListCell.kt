@@ -9,7 +9,6 @@ import javafx.scene.control.TextField
 import javafx.scene.image.ImageView
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
-import javafx.scene.layout.HBox
 import java.awt.image.BufferedImage
 import java.nio.file.Path
 import javax.swing.filechooser.FileSystemView
@@ -50,6 +49,7 @@ class PathListCell : ListCell<Path>() {
 
         val fxImage = SwingFXUtils.toFXImage(bufferedImage, null)
         iconImageView.image = fxImage
+        iconImageView.opacity = if (target.toFile().isHidden) { 0.5 } else { 1.0 }
     }
 
     override fun updateItem(item: Path?, empty: Boolean) {

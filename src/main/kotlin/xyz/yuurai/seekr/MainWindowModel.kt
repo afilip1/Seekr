@@ -20,10 +20,10 @@ class MainWindowModel(private val initialDir: Path) {
     val currentDirContents: ObservableList<Path> = FXCollections.observableArrayList()
 
     val quickAccessDirs: ObservableList<Path> = FXCollections.observableArrayList(
-            Paths.get("""C:\"""),
-            Paths.get("""C:\Program Files"""),
-            HOME_DIRECTORY,
-            DESKTOP_DIRECTORY
+        Paths.get("""C:\"""),
+        Paths.get("""C:\Program Files"""),
+        HOME_DIRECTORY,
+        DESKTOP_DIRECTORY
     )
 
 
@@ -38,13 +38,24 @@ class MainWindowModel(private val initialDir: Path) {
 
         currentDirContents.clear()
         Files.list(currentDir).use { files ->
-            currentDirContents.addAll(files.toList())
+            val filteredHidden = files.toList()
+                .processIf(!ConfigStore.config.showHiddenItems) {
+                    filter { !it.toFile().isHidden }
+                }
+
+            val sortedByDirsFirst = filteredHidden
+                .processIf(ConfigStore.config.sortByDirsFirst) {
+                    partition { it.toFile().isDirectory }
+                        .let { (dirs, nonDirs) -> dirs + nonDirs }
+                }
+
+            currentDirContents.addAll(sortedByDirsFirst)
         }
 
         directoryWatcher.watch(currentDir)
     }
 
-    private fun refreshContents() = navigateTo(currentDir)
+    fun refreshContents() = navigateTo(currentDir)
 
     fun navigateUp() {
         if (currentDir.parent != null) {

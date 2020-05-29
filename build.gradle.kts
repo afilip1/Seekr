@@ -1,5 +1,7 @@
 plugins {
+    application
     kotlin("jvm") version "1.3.72"
+    kotlin("plugin.serialization") version "1.3.72"
     id("org.openjfx.javafxplugin") version "0.0.8"
 }
 
@@ -7,11 +9,17 @@ group = "xyz.yuurai.seekr"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0")
+}
+
+application {
+    mainClassName = "xyz.yuurai.seekr.AppKt"
 }
 
 javafx {

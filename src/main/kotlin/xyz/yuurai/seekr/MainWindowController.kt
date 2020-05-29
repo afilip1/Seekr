@@ -15,12 +15,28 @@ class MainWindowController {
     lateinit var quickAccessListView: ListView<Path>
     lateinit var currentDirContentsListView: ListView<Path>
 
+    lateinit var showHiddenItemsMenu: CheckMenuItem
+    lateinit var sortByDirsFirstMenu: CheckMenuItem
+
     private val model = MainWindowModel(
-            initialDir = DESKTOP_DIRECTORY)
+        initialDir = DESKTOP_DIRECTORY
+    )
 
     @FXML
     fun initialize() {
         currentDirTextField.textProperty().bind(model.currentDirProperty().asString())
+
+        showHiddenItemsMenu.isSelected = ConfigStore.config.showHiddenItems
+        showHiddenItemsMenu.selectedProperty().addListener { _, _, isSelected ->
+            ConfigStore.config = ConfigStore.config.copy(showHiddenItems = isSelected)
+            model.refreshContents()
+        }
+
+        sortByDirsFirstMenu.isSelected = ConfigStore.config.sortByDirsFirst
+        sortByDirsFirstMenu.selectedProperty().addListener { _, _, isSelected ->
+            ConfigStore.config = ConfigStore.config.copy(sortByDirsFirst = isSelected)
+            model.refreshContents()
+        }
 
         quickAccessListView.apply {
             items = model.quickAccessDirs
