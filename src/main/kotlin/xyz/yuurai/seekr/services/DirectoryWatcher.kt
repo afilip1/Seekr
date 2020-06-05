@@ -1,4 +1,4 @@
-package xyz.yuurai.seekr
+package xyz.yuurai.seekr.services
 
 import javafx.concurrent.ScheduledService
 import javafx.concurrent.Task
@@ -8,7 +8,7 @@ import java.nio.file.Path
 import java.nio.file.StandardWatchEventKinds.*
 import java.nio.file.WatchKey
 
-class DirectoryWatcher(private val pollPeriod: Duration, private val onChange: () -> Unit) {
+class DirectoryWatcher(initDir: Path, pollPeriod: Duration, onChange: () -> Unit) {
     private val watchService = FileSystems.getDefault().newWatchService()
     private var watchKey: WatchKey? = null
 
@@ -23,6 +23,10 @@ class DirectoryWatcher(private val pollPeriod: Duration, private val onChange: (
         start()
     }
 
+    init {
+        watch(initDir)
+    }
+
     fun watch(path: Path) {
         watchKey?.cancel()
         watchKey = path.register(watchService, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY)
@@ -30,7 +34,8 @@ class DirectoryWatcher(private val pollPeriod: Duration, private val onChange: (
 
     private inner class ChangePoller : ScheduledService<Boolean>() {
         override fun createTask() = object : Task<Boolean>() {
-            override fun call() = watchService.poll() != null
+            override fun call() =
+                watchKey?.isValid == true && watchService.poll() != null
         }
     }
 }
