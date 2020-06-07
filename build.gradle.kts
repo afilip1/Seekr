@@ -21,8 +21,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.awaitility:awaitility:4.0.3")
-//    testImplementation("org.testfx:testfx-core:4.0.16-alpha")
-//    testImplementation("org.testfx:testfx-junit5:4.0.16-alpha")
+    testImplementation("org.testfx:testfx-core:4.0.16-alpha")
+    testImplementation("org.testfx:testfx-junit5:4.0.16-alpha")
 //    testImplementation("io.mockk:mockk:1.10.0")
 }
 

@@ -1,6 +1,7 @@
 package xyz.yuurai.seekr
 
 import com.sun.javafx.application.PlatformImpl
+import javafx.stage.Stage
 import org.awaitility.Awaitility.await
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -8,6 +9,8 @@ import org.junit.jupiter.api.Assumptions.assumeFalse
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.io.TempDir
+import org.testfx.api.FxToolkit
+import xyz.yuurai.seekr.app.SeekrApp
 import xyz.yuurai.seekr.controllers.DirectoryStore
 import java.nio.file.Files
 import java.nio.file.Path
@@ -16,7 +19,8 @@ import kotlin.streams.toList
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class DirectoryStoreTests {
     init {
-        PlatformImpl.startup {} // initialize JavaFX
+        FxToolkit.registerPrimaryStage()
+        FxToolkit.setupApplication(SeekrApp::class.java)
     }
 
     @Test
