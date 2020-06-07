@@ -12,9 +12,9 @@ internal fun MouseEvent.isDoubleClick(): Boolean =
     button == MouseButton.PRIMARY && clickCount == 2
 
 /**
- * Applies transformation to the iterable if the condition is true, otherwise returns it as is.
+ * Applies transformation to the list if the condition is true, otherwise returns it as is.
  */
-fun <T> Iterable<T>.processIf(condition: Boolean, transform: Iterable<T>.() -> Iterable<T>): Iterable<T> {
+fun <T> List<T>.processIf(condition: Boolean, transform: List<T>.() -> List<T>): List<T> {
     return if (condition) {
         this.transform()
     } else {
