@@ -27,8 +27,10 @@ class UrlBar : View() {
 
         menubar {
             menu("Options") {
-                checkmenuitem("Show hidden items") {
-                    bind(options.showHiddenFilesProperty)
+                graphic = FontAwesomeIconFactory.get().createIcon(FontAwesomeIcon.WRENCH)
+
+                checkmenuitem("Exclude hidden items") {
+                    bind(options.excludeHiddenFilesProperty)
                 }
                 checkmenuitem("Sort by directories first") {
                     bind(options.sortByDirsFirstProperty)

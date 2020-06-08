@@ -14,7 +14,7 @@ internal fun MouseEvent.isDoubleClick(): Boolean =
 /**
  * Applies transformation to the list if the condition is true, otherwise returns it as is.
  */
-fun <T> List<T>.processIf(condition: Boolean, transform: List<T>.() -> List<T>): List<T> {
+fun <T> List<T>.runIf(condition: Boolean, transform: List<T>.() -> List<T>): List<T> {
     return if (condition) {
         this.transform()
     } else {

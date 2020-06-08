@@ -2,6 +2,7 @@ package xyz.yuurai.seekr.views
 
 import javafx.scene.input.KeyCode
 import tornadofx.View
+import tornadofx.editableWhen
 import tornadofx.listview
 import xyz.yuurai.seekr.controllers.DirectoryStore
 import xyz.yuurai.seekr.isDoubleClick
@@ -11,13 +12,6 @@ class DirectoryListing : View() {
 
     override val root = listview(directoryStore.filesInCurrentDir) {
         cellFragment(PathFragment::class)
-
-        setOnMouseClicked { e ->
-            if (e.isDoubleClick()) {
-                val target = selectionModel.selectedItem
-                directoryStore.open(target)
-            }
-        }
 
         @Suppress("NON_EXHAUSTIVE_WHEN")
         setOnKeyPressed { e ->

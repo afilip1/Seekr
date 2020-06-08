@@ -2,29 +2,26 @@ package xyz.yuurai.seekr.controllers
 
 import javafx.beans.property.SimpleBooleanProperty
 import tornadofx.Controller
+import tornadofx.booleanProperty
 import tornadofx.getValue
 import tornadofx.onChange
 
 class OptionsStore : Controller() {
-    private val showHiddenFilesKey = "SHOW_HIDDEN_FILES"
-    private val sortByDirsFirstKey = "SORT_BY_DIRS_FIRST"
+    private val showHiddenFilesKey = "show_hidden_files"
+    private val sortByDirsFirstKey = "sort_by_dirs_first"
 
-    val showHiddenFilesProperty = SimpleBooleanProperty(
-        app.config.boolean(showHiddenFilesKey, false)
+    val excludeHiddenFilesProperty = booleanProperty(
+        app.config.boolean(showHiddenFilesKey, true)
     )
-    val showHiddenFiles by showHiddenFilesProperty
+    val excludeHiddenFiles by excludeHiddenFilesProperty
 
-    // handy conversion
-    private val hideHiddenFilesProperty = showHiddenFilesProperty.not()
-    val hideHiddenFiles by hideHiddenFilesProperty
-
-    val sortByDirsFirstProperty = SimpleBooleanProperty(
+    val sortByDirsFirstProperty = booleanProperty(
         app.config.boolean(sortByDirsFirstKey, true)
     )
     val sortByDirsFirst by sortByDirsFirstProperty
 
     init {
-        showHiddenFilesProperty.onChange { value ->
+        excludeHiddenFilesProperty.onChange { value ->
             with(app.config) {
                 set(showHiddenFilesKey to value)
                 save()

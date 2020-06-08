@@ -1,7 +1,5 @@
 package xyz.yuurai.seekr
 
-import com.sun.javafx.application.PlatformImpl
-import javafx.stage.Stage
 import org.awaitility.Awaitility.await
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue

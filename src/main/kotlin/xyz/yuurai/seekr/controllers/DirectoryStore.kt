@@ -1,10 +1,9 @@
 package xyz.yuurai.seekr.controllers
 
-import javafx.beans.property.SimpleObjectProperty
 import javafx.util.Duration
 import tornadofx.*
 import xyz.yuurai.seekr.HOME_DIRECTORY
-import xyz.yuurai.seekr.processIf
+import xyz.yuurai.seekr.runIf
 import xyz.yuurai.seekr.services.DirectoryWatcher
 import xyz.yuurai.seekr.services.NavigationHistory
 import java.awt.Desktop
@@ -15,22 +14,22 @@ import kotlin.streams.toList
 class DirectoryStore(initDir: Path = HOME_DIRECTORY) : Controller() {
     private val options: OptionsStore by inject()
 
-    val currentDirProperty = SimpleObjectProperty(initDir)
+    val currentDirProperty = objectProperty(initDir)
     var currentDir: Path by currentDirProperty; private set
 
     val filesInCurrentDir = nonNullObjectBinding(
         currentDirProperty,
-        options.showHiddenFilesProperty,
+        options.excludeHiddenFilesProperty,
         options.sortByDirsFirstProperty
     ) {
         Files.list(value)
             .use { files ->
                 files.toList<Path>()
             }
-            .processIf(options.hideHiddenFiles) {
+            .runIf(options.excludeHiddenFiles) {
                 filterNot { Files.isHidden(it) }
             }
-            .processIf(options.sortByDirsFirst) {
+            .runIf(options.sortByDirsFirst) {
                 val (dirs, nonDirs) = partition { Files.isDirectory(it) }
                 dirs + nonDirs
             }
