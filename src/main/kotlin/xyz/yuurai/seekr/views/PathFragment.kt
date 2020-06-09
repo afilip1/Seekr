@@ -25,7 +25,13 @@ class PathFragment : ListCellFragment<Path>() {
             removeWhen(editingProperty.not())
             whenVisible {
                 text = model.displayName.value
+
                 requestFocus()
+
+                val fileExtIndex = text.indexOf('.', 1) // don't trip on dotfiles
+                if (fileExtIndex != -1) {
+                    selectRange(0, fileExtIndex)
+                }
             }
 
             action {
