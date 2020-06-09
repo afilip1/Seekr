@@ -77,4 +77,9 @@ class DirectoryStore(initDir: Path = HOME_DIRECTORY) : Controller() {
             Desktop.getDesktop().open(target.toFile())
         }
     }
+
+    fun rename(target: Path, newName: String) {
+        val destination = target.resolveSibling(newName)
+        Files.move(target, destination)
+    }
 }

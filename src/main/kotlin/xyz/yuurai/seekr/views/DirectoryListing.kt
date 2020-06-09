@@ -20,7 +20,14 @@ class DirectoryListing : View() {
                 e.code == KeyCode.BACK_SPACE -> directoryStore.navigateBack()
                 e.code == KeyCode.LEFT && e.isAltDown -> directoryStore.navigateBack()
                 e.code == KeyCode.RIGHT && e.isAltDown -> directoryStore.navigateForward()
+                e.code == KeyCode.F2 -> {
+                    isEditable = true
+                    edit(selectionModel.selectedIndex)
+                }
             }
         }
+
+        setOnEditCommit { isEditable = false }
+        setOnEditCancel { isEditable = false }
     }
 }

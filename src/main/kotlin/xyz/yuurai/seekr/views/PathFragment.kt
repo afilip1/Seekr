@@ -16,7 +16,22 @@ class PathFragment : ListCellFragment<Path>() {
         imageview(model.iconImage) {
             opacityProperty().bind(model.iconOpacity)
         }
-        label(model.displayName)
+
+        label(model.displayName) {
+            removeWhen(editingProperty)
+        }
+
+        textfield {
+            removeWhen(editingProperty.not())
+            whenVisible {
+                text = model.displayName.value
+                requestFocus()
+            }
+
+            action {
+                directoryStore.rename(item, text)
+            }
+        }
 
         setOnMouseClicked { e ->
             if (e.isDoubleClick()) {
