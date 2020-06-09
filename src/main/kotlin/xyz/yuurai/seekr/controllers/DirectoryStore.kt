@@ -82,4 +82,8 @@ class DirectoryStore(initDir: Path = HOME_DIRECTORY) : Controller() {
         val destination = target.resolveSibling(newName)
         Files.move(target, destination)
     }
+
+    fun delete(target: Path) {
+        Files.delete(target)
+    }
 }

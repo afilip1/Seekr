@@ -24,6 +24,7 @@ class DirectoryListing : View() {
                     isEditable = true
                     edit(selectionModel.selectedIndex)
                 }
+                e.code == KeyCode.DELETE -> directoryStore.delete(selectionModel.selectedItem)
             }
         }
 
