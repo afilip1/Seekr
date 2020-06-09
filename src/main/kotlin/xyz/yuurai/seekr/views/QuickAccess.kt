@@ -3,9 +3,8 @@ package xyz.yuurai.seekr.views
 import javafx.scene.input.KeyCode
 import tornadofx.View
 import tornadofx.listview
-import xyz.yuurai.seekr.controllers.QuickAccessStore
 import xyz.yuurai.seekr.controllers.DirectoryStore
-import xyz.yuurai.seekr.isDoubleClick
+import xyz.yuurai.seekr.controllers.QuickAccessStore
 
 class QuickAccess : View() {
     private val directoryStore: DirectoryStore by inject()

@@ -2,10 +2,8 @@ package xyz.yuurai.seekr.views
 
 import javafx.scene.input.KeyCode
 import tornadofx.View
-import tornadofx.editableWhen
 import tornadofx.listview
 import xyz.yuurai.seekr.controllers.DirectoryStore
-import xyz.yuurai.seekr.isDoubleClick
 
 class DirectoryListing : View() {
     private val directoryStore: DirectoryStore by inject()

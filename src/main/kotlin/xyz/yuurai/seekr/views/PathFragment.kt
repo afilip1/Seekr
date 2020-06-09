@@ -1,8 +1,9 @@
 package xyz.yuurai.seekr.views
 
+import javafx.scene.input.MouseButton
+import javafx.scene.input.MouseEvent
 import tornadofx.*
 import xyz.yuurai.seekr.controllers.DirectoryStore
-import xyz.yuurai.seekr.isDoubleClick
 import xyz.yuurai.seekr.models.PathModel
 import java.nio.file.Path
 
@@ -47,4 +48,6 @@ class PathFragment : ListCellFragment<Path>() {
         }
     }
 }
+
+private fun MouseEvent.isDoubleClick() = button == MouseButton.PRIMARY && clickCount == 2
 
